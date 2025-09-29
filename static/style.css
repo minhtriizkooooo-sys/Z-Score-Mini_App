@@ -1,9 +1,9 @@
 :root {
-    --primary-color: #2e8b57; /* Sea green */
-    --secondary-color: #3cb371; /* Medium sea green */
-    --background-color: #f0fff0; /* Honeydew */
+    --primary-color: #2e8b57; /* Darker Green (Xanh lá đậm) */
+    --secondary-color: #4CAF50; /* Medium Green - cho nút */
+    --background-color: #e8f5e9; /* Light Green - Nền */
     --text-color: #333;
-    --card-background: #fff;
+    --card-background: #ffffff;
     --border-color: #ddd;
 }
 
@@ -11,7 +11,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     overflow-x: hidden;
@@ -29,6 +29,7 @@ html, body {
     justify-content: center;
     align-items: center;
     background-color: black;
+    transition: opacity 1s ease-out; /* Thêm transition cho mượt mà */
 }
 
 #intro-video {
@@ -43,7 +44,7 @@ html, body {
 #start-button {
     position: absolute;
     z-index: 1001;
-    background-color: rgba(60, 179, 113, 0.8);
+    background-color: rgba(76, 175, 80, 0.9);
     color: white;
     border: none;
     padding: 15px 30px;
@@ -52,10 +53,11 @@ html, body {
     cursor: pointer;
     backdrop-filter: blur(5px);
     transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 #start-button:hover {
-    background-color: rgba(43, 122, 74, 0.9);
+    background-color: rgba(67, 160, 71, 1);
     transform: scale(1.05);
 }
 
@@ -74,21 +76,23 @@ header {
 .header-content {
     display: flex;
     align-items: center;
-    justify-content: center;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto; /* Căn giữa */
     padding: 0 20px;
-    text-align: center;
 }
 
 .school-logo {
     height: 60px;
+    border-radius: 50%;
     margin-right: 20px;
 }
 
 h1, h2, h3 {
     color: var(--primary-color);
+    margin-top: 0;
 }
+h1 { font-size: 1.8rem; }
+h2 { font-size: 1.5rem; }
 
 main {
     padding: 20px;
@@ -100,18 +104,25 @@ section {
     background-color: var(--card-background);
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
 /* Form and Buttons */
+.upload-section, .settings-section {
+    display: flex;
+    flex-direction: column;
+}
+.upload-section form {
+    display: flex;
+    gap: 10px;
+}
 input[type="file"] {
+    flex-grow: 1;
     border: 1px solid var(--border-color);
-    padding: 10px;
-    border-radius: 4px;
-    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
     box-sizing: border-box;
-    margin-bottom: 10px;
 }
 
 button {
@@ -119,19 +130,22 @@ button {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 button:hover {
-    background-color: #2b7a4a;
+    background-color: #45a049;
+    transform: translateY(-1px);
 }
 
 .template-info {
     text-align: center;
     margin-top: 10px;
+    font-size: 0.9rem;
 }
 
 .template-info a {
@@ -141,6 +155,24 @@ button:hover {
 }
 
 /* Table styling */
+.filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.filter-controls input, .filter-controls select {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+.filter-controls > div {
+    display: flex;
+    flex-direction: column;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -151,11 +183,14 @@ th, td {
     border: 1px solid var(--border-color);
     padding: 12px;
     text-align: left;
+    font-size: 0.9rem;
 }
 
 th {
     background-color: var(--primary-color);
     color: white;
+    position: sticky;
+    top: 0;
 }
 
 /* Chart and Dashboard layout */
@@ -168,6 +203,13 @@ th {
 .chart-container, .table-container {
     flex: 1;
     min-width: 300px;
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.table-container {
+    overflow-x: auto;
 }
 
 .click-instruction {
@@ -186,9 +228,13 @@ th {
 .chart-box {
     flex: 1;
     min-width: 400px;
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-/* Footer */
+/* Footer - Căn giữa nội dung */
 footer {
     text-align: center;
     padding: 20px 0;
@@ -203,6 +249,6 @@ footer {
     align-items: center;
     justify-content: center;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto; /* Căn giữa */
     padding: 0 20px;
 }
