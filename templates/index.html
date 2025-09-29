@@ -1,4 +1,4 @@
-<!DOCTYPE-html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,14 @@
 <body>
     <div id="intro-container">
         <video id="intro-video" src="{{ url_for('static', filename='intro-video.mp4') }}" autoplay muted></video>
+        <button id="start-button" style="display: none;">Bắt đầu</button>
     </div>
     
     <div id="main-content" style="display: none;">
         <header>
             <div class="header-content">
                 <img src="{{ url_for('static', filename='Logo_Marie_Curie.png') }}" alt="Logo Trường" class="school-logo">
-                <h1>DỰ ÁN PHÂN TÍCH HỌC SINH BẤT THƯỜNG</h1>
+                <h1>DỰ ÁN PHÂN TÍCH ĐIẾM SỐ BẤT THƯỜNG CỦA HỌC SINH </h1>
             </div>
         </header>
         <main>
