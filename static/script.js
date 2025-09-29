@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const animationContainer = document.getElementById('animation-container');
-    const interactBox = document.getElementById('interact-box');
-    const animationText = animationContainer.querySelector('h2');
+    const introVideo = document.getElementById('intro-video');
+    const introContainer = document.getElementById('intro-container');
+    const startButton = document.getElementById('start-button');
     const mainContent = document.getElementById('main-content');
     const uploadForm = document.getElementById('upload-form');
     const zscoreSlider = document.getElementById('zscore-slider');
@@ -17,16 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let subjectList = [];
     let currentClass = null;
     
-    // Xử lý hoạt ảnh khi người dùng click vào
-    interactBox.addEventListener('click', () => {
-        interactBox.classList.add('clicked');
-        animationText.classList.add('fade-out');
-
-        // Chờ hoạt ảnh kết thúc rồi chuyển sang trang chính
-        setTimeout(() => {
-            animationContainer.style.display = 'none';
-            mainContent.style.display = 'block';
-        }, 1000); // 1000ms là thời gian chuyển đổi của hoạt ảnh
+    // Hiển thị nút bắt đầu khi video kết thúc
+    introVideo.addEventListener('ended', () => {
+        startButton.style.display = 'block';
+    });
+    
+    // Ẩn intro container và hiển thị nội dung chính khi click vào nút bắt đầu
+    startButton.addEventListener('click', () => {
+        introContainer.style.display = 'none';
+        mainContent.style.display = 'block';
     });
 
     uploadForm.addEventListener('submit', async (e) => {
