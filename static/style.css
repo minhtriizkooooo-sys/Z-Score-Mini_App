@@ -1,23 +1,24 @@
 :root {
-    --primary-color: #2e8b57; /* Sea green */
-    --secondary-color: #3cb371; /* Medium sea green */
-    --background-color: #f0fff0; /* Honeydew */
+    --primary-color: #2e8b57;
+    --secondary-color: #3cb371;
+    --background-color: #f0fff0;
     --text-color: #333;
     --card-background: #fff;
     --border-color: #ddd;
 }
 
-body {
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     overflow-x: hidden;
 }
 
-/* Fullscreen video intro */
-#intro-container {
+/* Hoạt ảnh tương tác toàn màn hình */
+#animation-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -27,37 +28,56 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    background-color: #333;
+    transition: background-color 1s ease-in-out;
 }
 
-#intro-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#start-button {
-    position: absolute;
-    bottom: 50px;
-    padding: 15px 30px;
-    font-size: 1.5rem;
-    cursor: pointer;
+#interact-box {
+    width: 200px;
+    height: 200px;
     background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    animation: pulse 2s infinite;
+    border-radius: 50%;
+    animation: pulse 2s infinite ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out, background-color 0.5s ease-in-out;
 }
 
-#start-button:hover {
-    background-color: #2b7a4a;
+#interact-box.clicked {
+    animation: none;
+    background-color: var(--primary-color);
+    transform: scale(30);
+    opacity: 0;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out, background-color 0.5s ease-in-out;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(60, 179, 113, 0.7);
+    }
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 25px rgba(60, 179, 113, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(60, 179, 113, 0);
+    }
+}
+
+#animation-container h2 {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    z-index: 1002;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#animation-container h2.fade-out {
+    opacity: 0;
 }
 
 /* Main Content Styling */
