@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const introVideo = document.getElementById('intro-video');
     const introContainer = document.getElementById('intro-container');
+    const startButton = document.getElementById('start-button');
     const mainContent = document.getElementById('main-content');
     const uploadForm = document.getElementById('upload-form');
     const zscoreSlider = document.getElementById('zscore-slider');
@@ -16,8 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let subjectList = [];
     let currentClass = null;
 
-    // Ẩn video và hiển thị nội dung chính khi video kết thúc
+    // Hiển thị nút "Bắt đầu" khi video kết thúc
     introVideo.addEventListener('ended', () => {
+        startButton.style.display = 'block';
+    });
+    
+    // Ẩn video và hiển thị nội dung chính khi click vào nút "Bắt đầu"
+    startButton.addEventListener('click', () => {
         introContainer.style.display = 'none';
         mainContent.style.display = 'block';
     });
