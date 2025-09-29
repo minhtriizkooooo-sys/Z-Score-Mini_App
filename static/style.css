@@ -1,23 +1,29 @@
 :root {
-    --primary-color: #2e8b57; /* Darker Green (Xanh lá đậm) */
-    --secondary-color: #4CAF50; /* Medium Green - cho nút */
-    --background-color: #e8f5e9; /* Light Green - Nền */
-    --text-color: #333;
-    --card-background: #ffffff;
-    --border-color: #ddd;
+    --primary-color: #2e7d32; /* Dark Green */
+    --secondary-color: #4caf50; /* Medium Green for buttons */
+    --accent-color: #81c784; /* Light Green for highlights */
+    --background-color: #f1f8e9; /* Very Light Green background */
+    --text-color: #1a1a1a; /* Dark Gray for text */
+    --card-background: #ffffff; /* White for cards */
+    --border-color: #e0e0e0; /* Light Gray for borders */
+    --error-color: #d32f2f; /* Red for errors */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
-    overflow-x: hidden;
+    line-height: 1.6;
 }
 
-/* Fullscreen video intro */
+/* Fullscreen Video Intro */
 #intro-container {
     position: fixed;
     top: 0;
@@ -28,74 +34,83 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
-    transition: opacity 1s ease-out; /* Thêm transition cho mượt mà */
+    background-color: #000;
+    transition: opacity 0.5s ease-out;
 }
 
 #intro-video {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-#start-button {
+#video-overlay {
     position: absolute;
-    z-index: 1001;
-    background-color: rgba(76, 175, 80, 0.9);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 8px;
-    font-size: 18px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
     cursor: pointer;
-    backdrop-filter: blur(5px);
-    transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
 }
 
-#start-button:hover {
-    background-color: rgba(67, 160, 71, 1);
-    transform: scale(1.05);
+#video-overlay:hover {
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* Main Content Styling */
+/* Main Content */
 #main-content {
     min-height: 100vh;
-    padding-top: 20px;
+    padding: 20px;
 }
 
 header {
     background-color: var(--primary-color);
-    color: white;
-    padding: 20px 0;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
     display: flex;
     align-items: center;
     max-width: 1200px;
-    margin: 0 auto; /* Căn giữa */
+    margin: 0 auto;
     padding: 0 20px;
 }
 
 .school-logo {
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 20px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 15px;
 }
 
-h1, h2, h3 {
-    color: var(--primary-color);
-    margin-top: 0;
+h1 {
+    font-size: 1.6rem;
+    color: #fff;
+    font-weight: 600;
 }
-h1 { font-size: 1.8rem; }
-h2 { font-size: 1.5rem; }
+
+h2 {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
 
 main {
-    padding: 20px;
     max-width: 1200px;
     margin: 20px auto;
 }
@@ -104,151 +119,192 @@ section {
     background-color: var(--card-background);
     padding: 20px;
     margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Form and Buttons */
-.upload-section, .settings-section {
-    display: flex;
-    flex-direction: column;
-}
 .upload-section form {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
+
 input[type="file"] {
-    flex-grow: 1;
-    border: 1px solid var(--border-color);
     padding: 8px;
-    border-radius: 6px;
-    box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
 }
 
 button {
     background-color: var(--secondary-color);
-    color: white;
+    color: #fff;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 4px;
+    font-size: 0.9rem;
     cursor: pointer;
-    font-size: 16px;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #388e3c;
     transform: translateY(-1px);
 }
 
 .template-info {
-    text-align: center;
     margin-top: 10px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    color: var(--text-color);
 }
 
 .template-info a {
     color: var(--primary-color);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
 }
 
-/* Table styling */
+.template-info a:hover {
+    text-decoration: underline;
+}
+
+.setting-note {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+.section-divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 20px 0;
+}
+
+/* Table Styling */
 .filter-controls {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 20px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
 }
-.filter-controls input, .filter-controls select {
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-}
+
 .filter-controls > div {
     display: flex;
     flex-direction: column;
+    min-width: 150px;
+}
+
+.filter-controls label {
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.filter-controls select,
+.filter-controls input {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    font-size: 0.9rem;
 }
 
 th, td {
-    border: 1px solid var(--border-color);
     padding: 12px;
     text-align: left;
-    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 th {
     background-color: var(--primary-color);
-    color: white;
-    position: sticky;
-    top: 0;
+    color: #fff;
+    font-weight: 600;
 }
 
-/* Chart and Dashboard layout */
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Chart and Dashboard */
 .dashboard-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
 .chart-container, .table-container {
-    flex: 1;
-    min-width: 300px;
-    background-color: var(--card-background);
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-.table-container {
-    overflow-x: auto;
+
+.chart-container {
+    min-height: 400px;
 }
 
 .click-instruction {
-    font-style: italic;
+    font-size: 0.85rem;
     color: #666;
     text-align: center;
     margin-top: 10px;
 }
 
 .advanced-chart-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
 .chart-box {
-    flex: 1;
-    min-width: 400px;
-    background-color: var(--card-background);
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Footer - Căn giữa nội dung */
+/* Footer */
 footer {
-    text-align: center;
-    padding: 20px 0;
     background-color: var(--primary-color);
-    color: white;
-    margin-top: 20px;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
 }
 
 .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     max-width: 1200px;
-    margin: 0 auto; /* Căn giữa */
+    margin: 0 auto;
     padding: 0 20px;
+    font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container, .advanced-chart-container {
+        grid-template-columns: 1fr;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .school-logo {
+        margin-bottom: 10px;
+    }
+
+    .upload-section form {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
 }
