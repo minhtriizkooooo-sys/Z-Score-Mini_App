@@ -1,102 +1,102 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dự án Phân tích Điểm Học Sinh</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự án Phân tích Điểm Học Sinh</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div id="intro-container">
-        <video id="intro-video" src="{{ url_for('static', filename='intro-video.mp4') }}" autoplay muted></video>
-        <button id="start-button" style="display: none;">Bắt đầu</button>
-    </div>
-    
-    <div id="main-content" style="display: none;">
-        <header>
-            <div class="header-content">
-                <img src="{{ url_for('static', filename='Logo_Marie_Curie.png') }}" alt="Logo Trường" class="school-logo">
-                <h1>DỰ ÁN PHÂN TÍCH ĐIẾM SỐ BẤT THƯỜNG CỦA HỌC SINH </h1>
-            </div>
-        </header>
-        <main>
-            <section class="upload-section">
-                <h2>Tải lên File Điểm</h2>
-                <form id="upload-form" enctype="multipart/form-data">
-                    <input type="file" id="file-input" name="file" accept=".csv, .xlsx, .xls">
-                    <button type="submit">Phân tích</button>
-                </form>
-                <div class="template-info">
-                    <p>
-                        Nếu bạn chưa có file, hãy tải về các file mẫu tại đây:
-                        <a href="{{ url_for('static', filename='student_grade_summary_template.csv') }}" download>File Mẫu 1 (Điểm môn học)</a>
-                        |
-                        <a href="{{ url_for('static', filename='studentscore_template.csv') }}" download>File Mẫu 2 (Điểm thành phần)</a>
-                    </p>
-                </div>
-            </section>
-            
-            <section class="settings-section">
-                <h2>Cài đặt</h2>
-                <label for="zscore-slider">Ngưỡng Z-score: <span id="zscore-value">1.5</span></label>
-                <input type="range" id="zscore-slider" min="0.5" max="3" step="0.1" value="1.5">
-            </section>
-            
-            <hr>
-            
-            <section class="results-section">
-                <h2>Kết quả Phân tích</h2>
-                <div class="dashboard-container">
-                    <div class="chart-container">
-                        <h3>Thống kê Học sinh theo Lớp</h3>
-                        <canvas id="class-chart"></canvas>
-                        <p class="click-instruction">Nhấn vào thanh biểu đồ để xem chi tiết!</p>
-                    </div>
-                    <div class="table-container">
-                        <h3>Danh sách Học sinh Bất thường</h3>
-                        <table id="abnormal-students-table">
-                            <thead>
-                                <tr>
-                                    <th>Tên Học sinh</th>
-                                    <th>Lớp</th>
-                                    <th>Điểm TB</th>
-                                    <th>Z-score</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="advanced-charts-section" style="display: none;">
-                <h2>Phân tích Chi tiết Lớp <span id="class-name-title"></span></h2>
-                <div class="chart-options">
-                    <label for="subject-select">Chọn Môn học:</label>
-                    <select id="subject-select"></select>
-                </div>
-                <div class="advanced-chart-container">
-                    <div class="chart-box">
-                        <h3>Phân bố Điểm</h3>
-                        <canvas id="histogram-chart"></canvas>
-                    </div>
-                    <div class="chart-box">
-                        <h3>Điểm Môn học với Điểm Trung bình Lớp</h3>
-                        <canvas id="scatter-chart"></canvas>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        <footer>
-            <div class="footer-content">
-                <p>Thực hiện bởi: [Lại Nguyễn Minh Trí và những người bạn]</p>
-                <p>Liên hệ: [0908-083566] - [laingminhtri@gmail.com]</p>
-            </div>
-        </footer>
-    </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <div id="intro-container">
+        <video id="intro-video" src="{{ url_for('static', filename='intro-video.mp4') }}" autoplay muted></video>
+        <button id="start-button" style="display: none;">Bắt đầu</button>
+    </div>
+    
+    <div id="main-content" style="display: none;">
+        <header>
+            <div class="header-content">
+                <img src="{{ url_for('static', filename='Logo_Marie_Curie.png') }}" alt="Logo Trường" class="school-logo">
+                <h1>DỰ ÁN PHÂN TÍCH ĐIẾM SỐ BẤT THƯỜNG CỦA HỌC SINH </h1>
+            </div>
+        </header>
+        <main>
+            <section class="upload-section">
+                <h2>Tải lên File Điểm</h2>
+                <form id="upload-form" enctype="multipart/form-data">
+                    <input type="file" id="file-input" name="file" accept=".csv, .xlsx, .xls">
+                    <button type="submit">Phân tích</button>
+                </form>
+                <div class="template-info">
+                    <p>
+                        Nếu bạn chưa có file, hãy tải về các file mẫu tại đây:
+                        <a href="{{ url_for('static', filename='student_grade_summary_template.csv') }}" download>File Mẫu 1 (Điểm môn học)</a>
+                        |
+                        <a href="{{ url_for('static', filename='studentscore_template.csv') }}" download>File Mẫu 2 (Điểm thành phần)</a>
+                    </p>
+                </div>
+            </section>
+            
+            <section class="settings-section">
+                <h2>Cài đặt</h2>
+                <label for="zscore-slider">Ngưỡng Z-score: <span id="zscore-value">1.5</span></label>
+                <input type="range" id="zscore-slider" min="0.5" max="3" step="0.1" value="1.5">
+            </section>
+            
+            <hr>
+            
+            <section class="results-section">
+                <h2>Kết quả Phân tích</h2>
+                <div class="dashboard-container">
+                    <div class="chart-container">
+                        <h3>Thống kê Học sinh theo Lớp</h3>
+                        <canvas id="class-chart"></canvas>
+                        <p class="click-instruction">Nhấn vào thanh biểu đồ để xem chi tiết!</p>
+                    </div>
+                    <div class="table-container">
+                        <h3>Danh sách Học sinh Bất thường</h3>
+                        <table id="abnormal-students-table">
+                            <thead>
+                                <tr>
+                                    <th>Tên Học sinh</th>
+                                    <th>Lớp</th>
+                                    <th>Điểm TB</th>
+                                    <th>Z-score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="advanced-charts-section" style="display: none;">
+                <h2>Phân tích Chi tiết Lớp <span id="class-name-title"></span></h2>
+                <div class="chart-options">
+                    <label for="subject-select">Chọn Môn học:</label>
+                    <select id="subject-select"></select>
+                </div>
+                <div class="advanced-chart-container">
+                    <div class="chart-box">
+                        <h3>Phân bố Điểm</h3>
+                        <canvas id="histogram-chart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Điểm Môn học với Điểm Trung bình Lớp</h3>
+                        <canvas id="scatter-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <p>Thực hiện bởi: [Lại Nguyễn Minh Trí và những người bạn]</p>
+                <p>Liên hệ: [0908-083566] - [laingminhtri@gmail.com]</p>
+            </div>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
