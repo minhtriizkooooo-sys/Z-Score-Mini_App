@@ -9,15 +9,17 @@
 </head>
 <body>
     <div id="intro-container">
-        <video id="intro-video" src="{{ url_for('static', filename='intro-video.mp4') }}" autoplay muted></video>
-        <button id="start-button" style="display: none;">Bắt đầu</button>
+        <!-- Video sẽ tự động phát (cần có file intro-video.mp4 trong thư mục static) -->
+        <video id="intro-video" src="{{ url_for('static', filename='intro-video.mp4') }}" autoplay muted playsinline></video>
+        <button id="start-button" style="display: none;">Bắt đầu Phân tích</button>
     </div>
     
     <div id="main-content" style="display: none;">
         <header>
             <div class="header-content">
+                <!-- Cần có file Logo_Marie_Curie.png trong thư mục static -->
                 <img src="{{ url_for('static', filename='Logo_Marie_Curie.png') }}" alt="Logo Trường" class="school-logo">
-                <h1>DỰ ÁN PHÂN TÍCH ĐIẾM SỐ BẤT THƯỜNG CỦA HỌC SINH </h1>
+                <h1>DỰ ÁN PHÂN TÍCH ĐIỂM SỐ BẤT THƯỜNG CỦA HỌC SINH</h1>
             </div>
         </header>
         <main>
@@ -25,14 +27,14 @@
                 <h2>Tải lên File Điểm</h2>
                 <form id="upload-form" enctype="multipart/form-data">
                     <input type="file" id="file-input" name="file" accept=".csv, .xlsx, .xls">
-                    <button type="submit">Phân tích</button>
+                    <button type="submit">Phân tích Dữ liệu</button>
                 </form>
                 <div class="template-info">
                     <p>
-                        Nếu bạn chưa có file, hãy tải về các file mẫu tại đây:
-                        <a href="{{ url_for('static', filename='student_grade_summary_template.csv') }}" download>File Mẫu 1 (Điểm môn học)</a>
+                        Tải về file mẫu:
+                        <a href="{{ url_for('static', filename='student_grade_summary_template.csv') }}" download>File Môn học</a>
                         |
-                        <a href="{{ url_for('static', filename='studentscore_template.csv') }}" download>File Mẫu 2 (Điểm thành phần)</a>
+                        <a href="{{ url_for('static', filename='studentscore_template.csv') }}" download>File Thành phần</a>
                     </p>
                 </div>
             </section>
@@ -41,12 +43,14 @@
                 <h2>Cài đặt</h2>
                 <label for="zscore-slider">Ngưỡng Z-score: <span id="zscore-value">1.5</span></label>
                 <input type="range" id="zscore-slider" min="0.5" max="3" step="0.1" value="1.5">
+                <p style="font-size: 0.9rem; color: #666;">* Thay đổi ngưỡng Z-score sẽ cập nhật kết quả và biểu đồ real-time.</p>
             </section>
             
-            <hr>
+            <hr style="border-color: var(--border-color);">
             
             <section class="results-section">
-                <h2>Kết quả Phân tích</h2>
+                <h2>Kết quả Phân tích Outlier</h2>
+                
                 <div class="dashboard-container">
                     <div class="chart-container">
                         <h3>Thống kê Học sinh theo Lớp</h3>
@@ -54,10 +58,26 @@
                         <p class="click-instruction">Nhấn vào thanh biểu đồ để xem chi tiết!</p>
                     </div>
                     <div class="table-container">
-                        <h3>Danh sách Học sinh Bất thường</h3>
+                        <h3>Danh sách Học sinh Bất thường (Outliers)</h3>
+                        
+                        <div class="filter-controls">
+                            <div>
+                                <label for="filter-lop">Lớp:</label>
+                                <select id="filter-lop" onchange="filterTable()"></select>
+                            </div>
+                            <div>
+                                <label for="filter-mahs">Mã HS:</label>
+                                <input type="text" id="filter-mahs" oninput="filterTable()" placeholder="Nhập Mã HS...">
+                            </div>
+                            <button id="download-button" style="margin-top: auto; white-space: nowrap;">
+                                Tải xuống CSV
+                            </button>
+                        </div>
+                        
                         <table id="abnormal-students-table">
                             <thead>
                                 <tr>
+                                    <th>Mã HS</th>
                                     <th>Tên Học sinh</th>
                                     <th>Lớp</th>
                                     <th>Điểm TB</th>
@@ -72,18 +92,20 @@
             </section>
             
             <section id="advanced-charts-section" style="display: none;">
-                <h2>Phân tích Chi tiết Lớp <span id="class-name-title"></span></h2>
+                <h2>Phân tích Chi tiết Lớp <span id="class-name-title" style="color: #FF5733;"></span></h2>
+                
                 <div class="chart-options">
-                    <label for="subject-select">Chọn Môn học:</label>
+                    <label for="subject-select">Chọn Môn học/Thành phần:</label>
                     <select id="subject-select"></select>
                 </div>
+                
                 <div class="advanced-chart-container">
                     <div class="chart-box">
-                        <h3>Phân bố Điểm</h3>
+                        <h3>Phân bố Điểm (Histogram)</h3>
                         <canvas id="histogram-chart"></canvas>
                     </div>
                     <div class="chart-box">
-                        <h3>Điểm Môn học với Điểm Trung bình Lớp</h3>
+                        <h3>Scatter Plot: Điểm Môn học vs Điểm Trung bình Lớp</h3>
                         <canvas id="scatter-chart"></canvas>
                     </div>
                 </div>
