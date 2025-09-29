@@ -37,7 +37,6 @@ body {
 
 /* Main Content Styling */
 #main-content {
-    /* style="display: none;" được đặt trong index.html */
     min-height: 100vh;
 }
 
@@ -55,7 +54,7 @@ header {
 }
 
 .school-logo {
-    height: 60px;
+    height: 60px; /* Chiều cao logo */
     margin-right: 20px;
 }
 
@@ -157,4 +156,11 @@ footer {
     background-color: var(--primary-color);
     color: white;
     margin-top: 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
