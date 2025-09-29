@@ -13,6 +13,7 @@ body {
     padding: 0;
     background-color: var(--background-color);
     color: var(--text-color);
+    overflow-x: hidden;
 }
 
 /* Fullscreen video intro */
@@ -20,8 +21,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -38,12 +39,13 @@ body {
 /* Main Content Styling */
 #main-content {
     min-height: 100vh;
+    padding-top: 20px;
 }
 
 header {
     background-color: var(--primary-color);
     color: white;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .header-content {
@@ -52,6 +54,8 @@ header {
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
 }
 
 .school-logo {
@@ -100,6 +104,17 @@ button {
 
 button:hover {
     background-color: #2b7a4a;
+}
+
+.template-info {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.template-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
 }
 
 /* Table styling */
@@ -153,7 +168,7 @@ th {
 /* Footer */
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 20px 0;
     background-color: var(--primary-color);
     color: white;
     margin-top: 20px;
@@ -166,4 +181,5 @@ footer {
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
