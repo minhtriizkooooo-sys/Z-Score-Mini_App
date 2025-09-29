@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const introVideo = document.getElementById('intro-video');
-    const introContainer = document.getElementById('intro-container');
-    const startButton = document.getElementById('start-button');
+    const animationContainer = document.getElementById('animation-container');
+    const interactBox = document.getElementById('interact-box');
+    const animationText = animationContainer.querySelector('h2');
     const mainContent = document.getElementById('main-content');
     const uploadForm = document.getElementById('upload-form');
     const zscoreSlider = document.getElementById('zscore-slider');
@@ -13,22 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const classNameTitle = document.getElementById('class-name-title');
 
     let classChart, histogramChart, scatterChart;
-    let fullData = []; // Biến để lưu trữ toàn bộ dữ liệu từ server
+    let fullData = [];
     let subjectList = [];
     let currentClass = null;
-
-    // Hiển thị nút "Bắt đầu" khi video kết thúc
-    introVideo.addEventListener('ended', () => {
-        startButton.style.display = 'block';
-    });
     
-    // Ẩn video và hiển thị nội dung chính khi click vào nút "Bắt đầu"
-    startButton.addEventListener('click', () => {
-        introContainer.style.display = 'none';
-        mainContent.style.display = 'block';
+    // Xử lý hoạt ảnh khi người dùng click vào
+    interactBox.addEventListener('click', () => {
+        interactBox.classList.add('clicked');
+        animationText.classList.add('fade-out');
+
+        // Chờ hoạt ảnh kết thúc rồi chuyển sang trang chính
+        setTimeout(() => {
+            animationContainer.style.display = 'none';
+            mainContent.style.display = 'block';
+        }, 1000); // 1000ms là thời gian chuyển đổi của hoạt ảnh
     });
 
-    // Xử lý sự kiện form upload
     uploadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const fileInput = document.getElementById('file-input');
@@ -60,20 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Cập nhật kết quả khi ngưỡng Z-score thay đổi
     zscoreSlider.addEventListener('input', async () => {
         zscoreValueSpan.textContent = zscoreSlider.value;
         await analyzeData(zscoreSlider.value);
     });
 
-    // Xử lý sự kiện khi chọn môn học khác
     subjectSelect.addEventListener('change', () => {
         if (currentClass) {
             updateAdvancedCharts(currentClass);
         }
     });
 
-    // Hàm gọi API phân tích và cập nhật giao diện
     async function analyzeData(zscoreThreshold) {
         try {
             const response = await fetch('/analyze', {
@@ -100,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Cập nhật bảng danh sách học sinh bất thường
     function updateTable(students) {
         abnormalStudentsTableBody.innerHTML = '';
         if (students.length === 0) {
@@ -119,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cập nhật biểu đồ cột chính và thêm sự kiện click
     function updateClassChart(classStats) {
         const labels = classStats.map(stat => stat.Lop);
         const totalStudents = classStats.map(stat => stat.total_students);
@@ -172,7 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cập nhật dropdown chọn môn học
     function updateSubjectDropdown() {
         subjectSelect.innerHTML = '';
         subjectList.forEach(subject => {
@@ -183,20 +177,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cập nhật các biểu đồ nâng cao
     function updateAdvancedCharts(className) {
         const selectedSubject = subjectSelect.value;
         const classStudents = fullData.filter(s => s.Lop === className);
 
-        // Chuẩn bị dữ liệu cho biểu đồ Histogram
         const subjectScores = classStudents.map(s => s[selectedSubject]).filter(s => !isNaN(s) && s !== null);
         const histogramData = {};
         subjectScores.forEach(score => {
-            const bin = Math.floor(score); // Ví dụ, nhóm điểm theo số nguyên
+            const bin = Math.floor(score);
             histogramData[bin] = (histogramData[bin] || 0) + 1;
         });
 
-        // Chuẩn bị dữ liệu cho biểu đồ Scatter
         const scatterPoints = classStudents.map(s => ({
             x: s.DiemTrungBinh,
             y: s[selectedSubject],
@@ -207,11 +198,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const normalPoints = scatterPoints.filter(p => !p.isAbnormal);
         const abnormalPoints = scatterPoints.filter(p => p.isAbnormal);
         
-        // Hủy biểu đồ cũ nếu có
         if (histogramChart) histogramChart.destroy();
         if (scatterChart) scatterChart.destroy();
         
-        // Tạo biểu đồ Histogram
         histogramChart = new Chart(document.getElementById('histogram-chart'), {
             type: 'bar',
             data: {
@@ -230,7 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Tạo biểu đồ Scatter
         scatterChart = new Chart(document.getElementById('scatter-chart'), {
             type: 'scatter',
             data: {
