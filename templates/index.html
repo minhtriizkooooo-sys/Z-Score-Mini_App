@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE-html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="intro-container">
-        <video id="intro-video" src="{{ url_for('static', filename='test.mp4') }}" autoplay muted></video>
+        <video id="intro-video" src="{{ url_for('static', filename='intro-video.mp4') }}" autoplay muted></video>
     </div>
     
     <div id="main-content" style="display: none;">
@@ -28,7 +28,10 @@
                 </form>
                 <div class="template-info">
                     <p>
-                        Nếu bạn chưa có file, hãy tải về <a href="{{ url_for('static', filename='student_data_template.csv') }}" download>File Mẫu tại đây</a>.
+                        Nếu bạn chưa có file, hãy tải về các file mẫu tại đây:
+                        <a href="{{ url_for('static', filename='student_grade_summary_template.csv') }}" download>File Mẫu 1 (Điểm môn học)</a>
+                        |
+                        <a href="{{ url_for('static', filename='studentscore_template.csv') }}" download>File Mẫu 2 (Điểm thành phần)</a>
                     </p>
                 </div>
             </section>
