@@ -3,12 +3,6 @@ let classChart, histogramChart, scatterChart;
 let fullData = [];
 let subjectList = [];
 let currentClass = null;
-const videoThemes = [
-    '/static/intro-video-theme1.mp4',
-    '/static/intro-video-theme2.mp4',
-    '/static/intro-video-theme3.mp4'
-];
-let currentThemeIndex = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
     const introVideo = document.getElementById('intro-video');
@@ -30,23 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const subjectSelect = document.getElementById('subject-select');
     const classNameTitle = document.getElementById('class-name-title');
 
-    // Set initial video source
-    introVideo.src = videoThemes[currentThemeIndex];
+    // Set single video source
+    introVideo.src = '/static/intro-video.mp4';
 
-    // Video theme switching and transition to main content
+    // Transition to main content on video click
     videoOverlay.addEventListener('click', () => {
-        currentThemeIndex = (currentThemeIndex + 1) % videoThemes.length;
-        if (currentThemeIndex === 0) {
-            // Transition to main content when cycling back to first theme
-            introContainer.style.opacity = '0';
-            setTimeout(() => {
-                introContainer.style.display = 'none';
-                mainContent.style.display = 'block';
-            }, 500);
-        } else {
-            introVideo.src = videoThemes[currentThemeIndex];
-            introVideo.play();
-        }
+        introContainer.style.opacity = '0';
+        setTimeout(() => {
+            introContainer.style.display = 'none';
+            mainContent.style.display = 'block';
+        }, 500);
     });
 
     // Auto-transition to main content when video ends
