@@ -26,6 +26,14 @@
                     <input type="file" id="file-input" name="file" accept=".csv, .xlsx, .xls">
                     <button type="submit">Phân tích</button>
                 </form>
+                <div class="template-info">
+                    <p>
+                        Nếu bạn chưa có file, hãy tải về các file mẫu tại đây:
+                        <a href="{{ url_for('static', filename='Student_GradeSummary_Template.csv') }}" download>File Mẫu Điểm Tổng Hợp</a>
+                        |
+                        <a href="{{ url_for('static', filename='Studentscore_Template.csv') }}" download>File Mẫu Điểm Môn Học</a>
+                    </p>
+                </div>
             </section>
             
             <section class="settings-section">
