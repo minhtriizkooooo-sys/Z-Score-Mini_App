@@ -3,6 +3,8 @@ let classChart, histogramChart, scatterChart;
 let fullData = [];
 let subjectList = [];
 let currentClass = null;
+const videoThemes = ['default', 'sepia', 'grayscale', 'hue'];
+let currentThemeIndex = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
     const introVideo = document.getElementById('intro-video');
@@ -24,16 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const subjectSelect = document.getElementById('subject-select');
     const classNameTitle = document.getElementById('class-name-title');
 
-    // Set single video source
+    // Set video source and initial theme
     introVideo.src = '/static/intro-video.mp4';
+    applyVideoTheme();
 
-    // Transition to main content on video click
+    // Handle video theme switching
     videoOverlay.addEventListener('click', () => {
-        introContainer.style.opacity = '0';
-        setTimeout(() => {
-            introContainer.style.display = 'none';
-            mainContent.style.display = 'block';
-        }, 500);
+        currentThemeIndex = (currentThemeIndex + 1) % videoThemes.length;
+        if (currentThemeIndex === 0) {
+            // Transition to main content after cycling through themes
+            introContainer.style.opacity = '0';
+            setTimeout(() => {
+                introContainer.style.display = 'none';
+                mainContent.style.display = 'block';
+            }, 500);
+        } else {
+            applyVideoTheme();
+            introVideo.play(); // Replay video for smooth effect
+        }
     });
 
     // Auto-transition to main content when video ends
@@ -44,6 +54,29 @@ document.addEventListener('DOMContentLoaded', () => {
             mainContent.style.display = 'block';
         }, 500);
     });
+
+    // Handle video load error
+    introVideo.addEventListener('error', () => {
+        alert('Không thể tải video intro. Nhấn OK để tiếp tục.');
+        introContainer.style.opacity = '0';
+        setTimeout(() => {
+            introContainer.style.display = 'none';
+            mainContent.style.display = 'block';
+        }, 500);
+    });
+
+    // Apply video theme based on currentThemeIndex
+    function applyVideoTheme() {
+        introVideo.classList.remove('theme-sepia', 'theme-grayscale', 'theme-hue');
+        if (videoThemes[currentThemeIndex] === 'sepia') {
+            introVideo.classList.add('theme-sepia');
+        } else if (videoThemes[currentThemeIndex] === 'grayscale') {
+            introVideo.classList.add('theme-grayscale');
+        } else if (videoThemes[currentThemeIndex] === 'hue') {
+            introVideo.classList.add('theme-hue');
+        }
+        // 'default' theme has no filter
+    }
 
     // Upload and analyze data
     uploadForm.addEventListener('submit', async (e) => {
